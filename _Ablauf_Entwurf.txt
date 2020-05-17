@@ -1,0 +1,15 @@
+Ablauf zum Laden der Resol Daten in den Volkszähler
+
+- Kanal für Leistungswert über die grafische Oberfläche des Volkszählers anlegen (KanalID 13 1c26b290-97c9-11ea-9c01-11ed7286b899) 
+- über resol.py (resol_vbus) die Daten über den Resol VBUS/LAN Adapter beziehen
+- Erstellung der resol.sql aus der resol.json
+
+(beispielhaft, wird erstellt)
+insert into data (channel_id, timestamp, value) values (13, unix_timestamp()*1000,120);
+quit
+)
+
+- einspielen in die Datenbank
+mysql --user=root --password=raspberry --database=volkszaehler < measurements.sql
+
+=> das ganze in ein sh script packen und per crontab aufrufen, fertig.
